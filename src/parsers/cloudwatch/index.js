@@ -39,6 +39,40 @@ class CloudWatchParser {
 				break;
 			}
 
+			const fields = [];
+
+			if (process.env.SERVICE_NAME) {
+				fields.push({
+					title: "Service",
+					value: process.env.SERVICE_NAME,
+					short: true
+				});
+			} else {
+				fields.push({
+					title: "Account ID",
+					value: accountId,
+					short: true
+				});
+			}
+
+			fields.push({
+				title: "Region",
+				value: region,
+				short: true
+			});
+			
+			fields.push({
+				title: "Old State",
+				value: oldState,
+				short: true
+			});
+			
+			fields.push({
+				title: "New State",
+				value: newState,
+				short: true
+			});
+
 			const slackMessage = {
 				attachments: [{
 					fallback: `${alarmName} state is now ${newState}:\n${reason}`,
@@ -46,23 +80,7 @@ class CloudWatchParser {
 					author_name: "Amazon CloudWatch Alarm",
 					title: alarmName,
 					text: reason,
-					fields: [{
-						title: "Acount ID",
-						value: accountId,
-						short: true
-					}, {
-						title: "Region",
-						value: region,
-						short: true
-					}, {
-						title: "Old State",
-						value: oldState,
-						short: true
-					}, {
-						title: "New State",
-						value: newState,
-						short: true
-					}],
+					fields: fields,
 					ts: Slack.toEpochTime(new Date(time))
 				}]
 			};

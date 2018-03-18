@@ -38,18 +38,28 @@ class AwsHealthParser {
 				color = Slack.COLORS.warning;
 			}
 
-			const fields = [{
-				title: "Account ID",
-				value: accountId,
-				short: true
-			}];
-			if (service) {
+			const fields = [];
+
+			if (process.env.SERVICE_NAME) {
 				fields.push({
 					title: "Service",
-					value: service,
+					value: process.env.SERVICE_NAME,
+					short: true
+				});
+			} else {
+				fields.push({
+					title: "Account ID",
+					value: accountId,
 					short: true
 				});
 			}
+
+			fields.push({
+				title: "AWS Service",
+				value: service || 'General',
+				short: true
+			});
+
 			if (startTime) {
 				fields.push({
 					title: "Start Time",

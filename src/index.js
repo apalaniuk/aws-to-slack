@@ -4,7 +4,7 @@ const BbPromise = require("bluebird"),
 	_ = require("lodash"),
 	Slack = require("./slack");
 
-module.exports.processIncoming = (event) => {
+module.exports.processIncoming = function(event) {
 	const GenericParser = require("./parsers/generic");
 	const parsers = [
 		require("./parsers/cloudwatch"),
