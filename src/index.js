@@ -4,7 +4,7 @@ const BbPromise = require("bluebird"),
 	_ = require("lodash"),
 	Slack = require("./slack");
 
-function processIncoming(event) {
+module.exports.processIncoming = (event) => {
 	const GenericParser = require("./parsers/generic");
 	const parsers = [
 		require("./parsers/cloudwatch"),
@@ -50,11 +50,3 @@ function processIncoming(event) {
 		console.log("ERROR:", err);
 	});
 }
-
-module.exports.handler = (event, context, callback) => {
-	context.callbackWaitsForEmptyEventLoop = false;
-
-	// no return here as we're invoking the callback directly
-	console.log("Incoming Message:", JSON.stringify(event, null, 2));
-	BbPromise.resolve(processIncoming(event)).asCallback(callback);
-};
