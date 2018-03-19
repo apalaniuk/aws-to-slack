@@ -90,7 +90,8 @@ class CloudWatchParser {
 			const chart = new Chart({
 				metrics: [
 					{
-						title: alarmName,
+						//title: alarmName,
+						title: `${trigger.MetricName} (${trigger.Statistic})`,
 						namespace: trigger.Namespace,
 						metricName: trigger.MetricName,
 						statisticValues: trigger.Statistic,
