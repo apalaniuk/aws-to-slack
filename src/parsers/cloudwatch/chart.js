@@ -442,17 +442,17 @@ class AwsCloudWatchChart {
 		// https://image-charts.com/documentation
 		const params = [];
 		params.push("cht=ls");
-		params.push("chxl=0:|"+labels.join("|"));
+		params.push("chxl=0:|" + labels.join("|"));
 		params.push("chxt=x,y");
-		params.push("chco="+colors.join(","));
-		params.push("chls="+styles.join("|"));
-		params.push("chs="+this.width+"x"+this.height);
-		params.push("chxr=1,0,"+topEdge+","+parseInt(topEdge / this.height * 20));
+		params.push("chco=" + colors.join(","));
+		params.push("chls=" + styles.join("|"));
+		params.push("chs=" + this.width+"x"+this.height);
+		params.push("chxr=1,0," + topEdge + "," + parseInt(topEdge / this.height * 20));
 		params.push("chg=20,10,1,5");
-		params.push("chdl="+titles.join("|"));
-		params.push("chd=e:"+datasetsAsString);
+		params.push("chdl=" + titles.map(i => encodeURIComponent(i)).join("|"));
+		params.push("chd=e:" + datasetsAsString);
 		params.push("chdlp=b"); // legend at bottom
-		// const url = "https://image-charts.com/chart?" + params.join("&");
+
 		const url = "https://chart.googleapis.com/chart?" + params.join("&");
 		console.log(url);
 
